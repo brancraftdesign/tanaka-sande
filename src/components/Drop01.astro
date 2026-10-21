@@ -1,0 +1,13 @@
+---
+import { turntable, wordmark } from '../lib/revere-svg';
+const figs = ['fig-a05-record-run', 'fig-a01-second-look', 'fig-a03-overcoat', 'fig-a07-sunday', 'fig-a02-street', 'fig-a06-afterhours'];
+---
+<div class="motion m-drop" data-motion="drop01" role="img" aria-label="Motion piece: a line-drawn turntable draws itself, its colour lands off-register, the record spins, six REVERE figures flip past like records in a crate, and it ends on Drop 01, for the circle.">
+  <svg class="d-tt" viewBox="0 0 800 800" aria-hidden="true"><svg class="tt" x="70" y="96" width="660" height="660" viewBox="0 0 800 800"><Fragment set:html={turntable()} /></svg></svg>
+  <div class="d-word" aria-hidden="true"><Fragment set:html={wordmark('#222526')} /></div>
+  <div class="d-code" aria-hidden="true">REV–001</div>
+  <div class="d-foot" aria-hidden="true">side a · drop 01</div>
+  <div class="d-crate" aria-hidden="true">{figs.map(f => <img src={`/img/${f}-sm.webp`} alt="" loading="lazy" />)}</div>
+  <div class="d-end" aria-hidden="true">Drop 01, <em>for the circle.</em></div>
+  <div class="d-veil" aria-hidden="true"></div>
+</div>

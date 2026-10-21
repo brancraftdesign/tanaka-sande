@@ -1,0 +1,17 @@
+---
+import { turntable, wordmark } from '../lib/revere-svg';
+---
+<figure class="plate plate-release" role="img" aria-label="Release card for Drop 01: two numbered pieces, REV–001 revere collar shirt and REV–002 heavyweight tee, with a five-track mood list.">
+  <div class="card">
+    <div class="hd"><span><Fragment set:html={wordmark('#222526')} /></span><span>side a</span></div>
+    <div class="art"><svg viewBox="0 0 800 800" aria-hidden="true"><Fragment set:html={turntable(true)} /></svg></div>
+    <div class="ttl">Drop 01<br /><em>for the circle.</em></div>
+    <hr />
+    <ol><li><span>01</span><span>REV–001 · revere collar shirt</span></li><li><span>02</span><span>REV–002 · heavyweight tee</span></li></ol>
+    <div class="ft">a private release · numbered pieces</div>
+  </div>
+  <div class="side" aria-hidden="true">
+    <b>SIDE A</b><span><i>01</i>concrete, early evening</span><span><i>02</i>coffee, second cup</span><span><i>03</i>the long walk home</span>
+    <b>SIDE B</b><span><i>04</i>after rain</span><span><i>05</i>last set</span>
+  </div>
+</figure>
