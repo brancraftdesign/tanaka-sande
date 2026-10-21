@@ -12,7 +12,7 @@ lead: "Menswear made with reverence: old-money tailoring, jazz-age ease."
 role: "Brand identity, graphic language, art direction, motion"
 state: "Identity complete. First pieces in development."
 ---
-import Sec from '../../components/Sec.astro';
+
 import Fig from '../../components/Fig.astro';
 import Drop01 from '../../components/Drop01.astro';
 import WalkHome from '../../components/WalkHome.astro';
@@ -21,61 +21,23 @@ import ReleaseCard from '../../components/ReleaseCard.astro';
 import WordmarkPlate from '../../components/WordmarkPlate.astro';
 import TypePlate from '../../components/TypePlate.astro';
 
-<Sec n="01" title="Release loop">
-  <figure><Drop01 /><figcaption><span>Drop 01 · release loop · 12 s, silent</span></figcaption></figure>
-</Sec>
+<p class="desc">REVERE is a menswear label built on one idea: how a man dresses is a form of respect, for himself, for the people around him and for the occasion. The name holds two meanings, to revere and the revere collar, and the brand sits between old-money tailoring and jazz-age ease. Jazz is the method rather than the subject, so REVERE releases clothing the way a label releases records: drops are albums, pieces are tracks, and every piece carries a catalogue number. I designed the identity, the line-and-colour figure library, the release system and its motion. The identity is complete, and the first pieces are in development for a small private circle.</p>
 
-<Sec n="02" title="The idea">
-  <p>Most fashion brands begin with a logo and a trend. REVERE began with a conviction: how a man dresses is a form of respect, for himself, for the people around him and for the occasion.</p>
-  <p class="quote">People notice care long before they can name it.</p>
-  <p>The name carries two meanings: to revere, and the revere collar, the open collar of the era the brand draws from. The line drawings carry the jazz; the tailoring carries the old money. Inside each piece sits one small detail only the wearer knows.</p>
-</Sec>
+<div class="gallery">
+  <figure><Drop01 /><figcaption><span>Drop 01 · release loop · 12 s</span></figcaption></figure>
+  <figure><ReleaseCard /><figcaption><span>Release card · Drop 01</span></figcaption></figure>
+  <figure><WordmarkPlate /><figcaption><span>Wordmark</span></figcaption></figure>
+  <figure><TypePlate /><figcaption><span>Type and colour</span></figcaption></figure>
+  <figure><div class="sq-walk"><WalkHome /></div><figcaption><span>Walk home · 9 s</span></figcaption></figure>
+  <figure><Rain /><figcaption><span>Rain on glass · 9/8 · 8.6 s</span></figcaption></figure>
+  <Fig src="/img/fig-a01-second-look-sm.webp" alt="Pen-and-colour figure in a cream sweater over the shoulders and tobacco trousers" cap="REV–A01 · second look" />
+  <Fig src="/img/fig-a02-street-sm.webp" alt="Pen-and-colour figure in a slate camp-collar shirt and cream trousers, holding a coffee" cap="REV–A02 · street" />
+  <Fig src="/img/fig-a03-overcoat-sm.webp" alt="Pen-and-colour figure in a long tobacco overcoat and slate trousers" cap="REV–A03 · overcoat" />
+  <Fig src="/img/fig-a04-cardigan-sm.webp" alt="Pen-and-colour figure seated in a cream cable-knit cardigan" cap="REV–A04 · cardigan" />
+  <Fig src="/img/garment-shirt.webp" alt="Folded slate camp-collar shirt with a woven REVERE label and hangtag" cap="REV–001 · revere collar shirt" note="Concept" />
+  <Fig src="/img/garment-tee.webp" alt="Cream heavyweight tee on a hanger printed with the REVERE wordmark and turntable graphic" cap="REV–002 · heavyweight tee" note="Concept" />
+  <Fig src="/img/scene-city.webp" alt="A man seen from behind at blue hour walking past a lit café in the turntable tee" cap="Blue hour" note="Concept" />
+  <Fig src="/img/scene-room.webp" alt="A listening room at dusk with a slate shirt over a chair, records and a turntable" cap="The listening room" note="Concept" />
+</div>
 
-<Sec n="03" title="A record label">
-  <p>Jazz is the method, not the subject. A jazz musician composes from whatever is in the air, so REVERE's graphics answer the mood of a moment. The brand releases clothing the way a label releases records: drops are albums, pieces are tracks, and every piece has a catalogue number.</p>
-  <figure><ReleaseCard /><figcaption><span>Release card and mood tracklist · Drop 01</span></figcaption></figure>
-</Sec>
-
-<Sec n="04" title="Identity">
-  <p>A lowercase wordmark that stays quiet so the graphics can speak. Onyx and ivory do most of the work; tobacco, slate and sand come from the clothes themselves. Instrument Serif sets the titles, and DM Mono sets catalogue numbers, the way a record sleeve sets its credits.</p>
-  <div class="grid-2"><WordmarkPlate /><TypePlate /></div>
-</Sec>
-
-<Sec n="05" title="Graphic language">
-  <div class="split">
-    <div class="txt">
-      <p>Loose, single-stroke figures in pen and colour. The line goes down first; the colour lands a little off-register, like a print laid down by hand. The figures sit between streetwear and old money: pleated trousers, camp collars, a record held to the chest.</p>
-      <p>Each figure is catalogued like a track, so the library can grow one mood at a time.</p>
-    </div>
-    <figure><WalkHome /><figcaption><span>Walk home · 9 s loop</span></figcaption></figure>
-  </div>
-  <div class="grid-3">
-    <Fig src="/img/fig-a01-second-look-sm.webp" alt="Pen-and-colour figure in a cream sweater over the shoulders and tobacco trousers" cap="REV–A01 · second look" />
-    <Fig src="/img/fig-a02-street-sm.webp" alt="Pen-and-colour figure in a slate camp-collar shirt and cream trousers, holding a coffee" cap="REV–A02 · street" />
-    <Fig src="/img/fig-a03-overcoat-sm.webp" alt="Pen-and-colour figure in a long tobacco overcoat and slate trousers" cap="REV–A03 · overcoat" />
-    <Fig src="/img/fig-a04-cardigan-sm.webp" alt="Pen-and-colour figure seated in a cream cable-knit cardigan" cap="REV–A04 · cardigan" />
-    <Fig src="/img/fig-a06-afterhours-sm.webp" alt="Pen-and-colour figure leaning on a wall in a tobacco shirt and cream trousers" cap="REV–A06 · afterhours" />
-    <Fig src="/img/fig-a07-sunday-sm.webp" alt="Pen-and-colour figure in a slate jacket and cream trousers" cap="REV–A07 · sunday" />
-  </div>
-</Sec>
-
-<Sec n="06" title="In the world">
-  <p>How the identity lives on the clothes and in the places they're worn: a woven label and hangtag, a turntable graphic on a heavyweight tee, a walk home at blue hour, a listening room at dusk.</p>
-  <div class="grid-2">
-    <Fig src="/img/garment-shirt.webp" alt="Folded slate camp-collar shirt with a woven REVERE label and hangtag" cap="REV–001 · revere collar shirt" note="Concept visualisation" />
-    <Fig src="/img/garment-tee.webp" alt="Cream heavyweight tee on a hanger printed with the REVERE wordmark and turntable graphic" cap="REV–002 · heavyweight tee" note="Concept visualisation" />
-    <Fig src="/img/scene-city.webp" alt="A man seen from behind at blue hour walking past a lit café in the turntable tee" cap="Blue hour" note="Concept visualisation" />
-    <Fig src="/img/scene-room.webp" alt="A listening room at dusk with a slate shirt over a chair, records and a turntable" cap="The listening room" note="Concept visualisation" />
-  </div>
-</Sec>
-
-<Sec n="07" title="Motion">
-  <p>Motion follows the music. Pieces are timed to a beat, and some are built on one: this grid keeps time in 9/8, grouped two, two, two, three, until one dot lets go and runs down the glass.</p>
-  <figure style="max-width:520px"><Rain /><figcaption><span>Rain on glass · 8.6 s loop · 9/8</span></figcaption></figure>
-</Sec>
-
-<Sec n="08" title="Where it stands">
-  <p>The identity is complete and the first pieces are in development, for release within a small private circle. REVERE is my lab for how a brand can grow from belonging rather than advertising.</p>
-  <p class="note">Garments, figures and scenes shown are concept visualisations made with AI image tools under my art direction. No pieces have been produced yet.</p>
-  <a class="next" href="/#index"><span class="ro">Next</span><span>Index →</span></a>
-</Sec>
+<p class="note">Garments, figures and scenes are concept visualisations made with AI image tools under my art direction. No pieces have been produced yet.</p>

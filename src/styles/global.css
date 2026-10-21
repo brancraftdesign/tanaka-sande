@@ -204,3 +204,17 @@ figcaption { font: 400 9.5px/1.5 var(--f-mono); font-stretch: 80%; letter-spacin
   .contact dd { margin-bottom: 12px; }
 }
 .sec > .body > figure:has(> .plate-release) { max-width: 640px; }
+
+/* project page: one paragraph, then the images */
+.file-head { padding-block: 14vh 28px; }
+.file-body { display: flex; flex-direction: column; gap: 64px; padding-bottom: 64px; }
+.file-body .desc { color: var(--fg-2); font-size: 16px; line-height: 1.7; max-width: 62ch; }
+.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 14px; }
+.gallery .wide { grid-column: 1 / -1; }
+.gallery > figure > img { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--panel); }
+.sq-walk { aspect-ratio: 1; background: #FBFAF7; display: grid; place-items: center; overflow: hidden; }
+.sq-walk .m-walk { width: 80%; max-width: none; }
+.file-body .note { border-top: 1px solid var(--line); padding-top: 14px; }
+.next.ro { display: inline-block; padding-bottom: 56px; }
+.next.ro:hover { color: var(--fg); }
+@media (max-width: 640px) { .gallery { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
