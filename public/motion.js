@@ -171,46 +171,61 @@
     };
   }
 
-  /* ---------- BLOO: a rack focus. The wordmark pulls back from a crop,
-     each letter sharpens in turn, a focus frame locks on, the line arrives. ---------- */
+  /* ---------- BLOO: autofocus hunting. The lens racks past focus and back,
+     the focus ring slides and stutters, the AF frame blinks, then it locks. ---------- */
   function bloo(node) {
-    const D = 6;
+    const D = 6.5;
     const word = node.querySelector('.b-word');
-    const blurs = [...node.querySelectorAll('.b-blur')];
+    const blur = node.querySelector('.b-blur');
     const br = node.querySelector('.b-brackets');
-    const arms = [...node.querySelectorAll('.b-arm')];
+    const ring = node.querySelector('.b-ring');
+    const strip = node.querySelector('.b-strip');
+    const af = node.querySelector('.b-af');
+    const afDot = node.querySelector('.b-afdot');
     const line = node.querySelector('.b-line');
-    const F = { x0: 60, y0: 60, x1: 1860, y1: 1020 };      // frame at start
-    const L = { x0: 520, y0: 262, x1: 1400, y1: 738 };     // locked on the wordmark
-    const A = 44;                                           // bracket arm length
-    const lerp = (a, b, p) => a + (b - a) * p;
-    function corners(r) {
-      const { x0, y0, x1, y1 } = r;
-      return [
-        `M${x0} ${y0 + A}V${y0}H${x0 + A}`, `M${x1 - A} ${y0}H${x1}V${y0 + A}`,
-        `M${x1} ${y1 - A}V${y1}H${x1 - A}`, `M${x0 + A} ${y1}H${x0}V${y1 - A}`
-      ];
+    // focus error over time: negative = focused too near, positive = too far, 0 = sharp.
+    // It sweeps through focus, overshoots, stutters (the glitch), and settles.
+    const K = [[0, -42], [0.45, -42], [1.25, 15], [1.7, -21], [2.12, 9], [2.2, 9], [2.24, -7], [2.32, -7],
+               [2.62, 4.5], [2.9, -2.6], [3.12, 1.1], [3.32, 0]];
+    const LOCK = 3.32;
+    function err(t) {
+      if (t <= K[0][0]) return K[0][1];
+      for (let i = 1; i < K.length; i++) {
+        const [t1, v1] = K[i], [t0, v0] = K[i - 1];
+        if (t <= t1) {
+          const span = t1 - t0;
+          const p = span < 0.05 ? 1 : easeInOut((t - t0) / span);   // short spans are the glitch: a hard jump
+          return v0 + (v1 - v0) * p;
+        }
+      }
+      return 0;
     }
     return {
       D, rest: D, once: true,
       render(t) {
         t = clamp(t, 0, D);
-        const k = easeInOut(prog(t, 0.15, 3.1));
-        const sc = lerp(3.4, 1, k);
-        word.setAttribute('transform', `translate(960 500) scale(${sc.toFixed(4)}) translate(-960 -500)`);
-        word.style.opacity = easeOut(prog(t, 0, 0.6));
-        blurs.forEach((b, i) => {
-          const s = 0.8 + i * 0.36;
-          b.setAttribute('stdDeviation', (46 * (1 - easeOut(prog(t, s, s + 1.5)))).toFixed(2));
-        });
-        const q = easeInOut(prog(t, 0.6, 3.3));
-        const r = { x0: lerp(F.x0, L.x0, q), y0: lerp(F.y0, L.y0, q), x1: lerp(F.x1, L.x1, q), y1: lerp(F.y1, L.y1, q) };
-        corners(r).forEach((d, i) => arms[i].setAttribute('d', d));
-        const lock = prog(t, 3.45, 3.6) - prog(t, 3.6, 3.75);
-        br.style.opacity = (0.55 * prog(t, 0.5, 1.1) + 0.45 * lock) * (1 - prog(t, 3.8, 4.5));
-        const l = easeOut(prog(t, 4.0, 4.9));
+        const hunting = t < LOCK;
+        const jitter = hunting && t > 0.45 ? Math.sin(t * 57) * Math.sin(t * 23) * 1.3 : 0;
+        const e = err(t) + jitter;
+        blur.setAttribute('stdDeviation', Math.min(48, Math.abs(e) * 1.05).toFixed(2));
+        const breathe = 1 + e * 0.0016;                         // focus breathing
+        word.setAttribute('transform', `translate(960 500) scale(${breathe.toFixed(4)}) translate(-960 -500)`);
+        word.style.opacity = easeOut(prog(t, 0, 0.45));
+        strip.setAttribute('transform', `translate(${(e * 9).toFixed(1)} 0)`);
+        const out = prog(t, 3.9, 4.5);
+        ring.style.opacity = 0.6 * prog(t, 0.2, 0.6) * (1 - out);
+        // AF frame: blinks while hunting, flashes and tightens on lock, then leaves
+        const blink = hunting ? (Math.floor(t * 7) % 2 ? 0.25 : 0.6) : 0;
+        const flash = prog(t, LOCK, LOCK + 0.08) - prog(t, LOCK + 0.3, LOCK + 0.55);
+        const settled = t >= LOCK ? 0.55 : 0;
+        br.style.opacity = (prog(t, 0.35, 0.5) * Math.max(blink, settled) + 0.45 * flash) * (1 - out);
+        const tight = 1 - 0.012 * easeOut(prog(t, LOCK, LOCK + 0.2));
+        br.setAttribute('transform', `translate(960 500) scale(${tight.toFixed(4)}) translate(-960 -500)`);
+        af.style.opacity = 0.6 * prog(t, 0.3, 0.6) * (1 - out);
+        afDot.style.opacity = hunting ? (Math.floor(t * 7) % 2 ? 0.2 : 1) : 1;
+        const l = easeOut(prog(t, 4.3, 5.2));
         line.style.opacity = 0.86 * l;
-        line.setAttribute('letter-spacing', (lerp(14, 5, l)).toFixed(2));
+        line.setAttribute('letter-spacing', (14 + (5 - 14) * l).toFixed(2));
       }
     };
   }
