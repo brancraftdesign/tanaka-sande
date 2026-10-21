@@ -6,40 +6,28 @@ import ObjectStudy from '../components/ObjectStudy.astro';
 ---
 <Base title="Tanaka Sande" description="Tanaka Sande is a product designer working across objects, brands and graphics. Harare, Zimbabwe. Open to remote work.">
   <section class="hero" aria-labelledby="who">
-    <h1 class="name" id="who"><span>Tanaka</span><span>Sande</span></h1>
-    <div class="hero-grid">
-      <div>
-        <p class="state">Product designer. Objects, brands and the graphics <em>that hold them together.</em></p>
-        <dl class="spec">
-          <dt>Practice</dt><dd>Product · Brand · Graphic</dd>
-          <dt>Trained</dt><dd>Ningbo University, China</dd>
-          <dt>Based</dt><dd>Harare, Zimbabwe · UTC+2</dd>
-          <dt>Status</dt><dd><span class="dot" aria-hidden="true"></span>Open to remote work</dd>
-        </dl>
-      </div>
-      <ObjectStudy />
+    <div>
+      <h1 id="who">Product designer. <span>Objects, brands and the graphics that hold them together.</span></h1>
+      <p class="ro status"><span class="dot" aria-hidden="true"></span>Open to remote work · Harare, UTC+2</p>
     </div>
+    <ObjectStudy />
   </section>
 
-  <Sec n="01" title="Index" id="index">
+  <Sec title="Index" id="index">
     <Archive />
   </Sec>
 
-  <Sec n="02" title="About" id="about">
-    <p>I've been redesigning the objects around me for as long as I can remember. I trained in product design in China and work from Harare, across furniture, consumer products, restaurant brands, packaging and apparel.</p>
-    <p>For the past two years I've led the brands of a group of businesses in Harare: a restaurant, an apparel label, a printing company. I also run <a href="https://anti-formula.com" rel="noopener">Anti-Formula</a>, my studio for objects and the brands I'm building.</p>
-    <div class="notes">
-      <div><span class="ro"><b>N.01</b></span><p>A design has to make me feel something before it earns the right to be measured.</p></div>
-      <div><span class="ro"><b>N.02</b></span><p>Trends hand everyone the same blueprint. I'd rather follow the object.</p></div>
-      <div><span class="ro"><b>N.03</b></span><p>A small mistake becomes an expensive one once it's made a thousand times.</p></div>
+  <Sec title="About" id="about">
+    <div class="prose" style="display:flex;flex-direction:column;gap:18px">
+      <p style="color:var(--fg-2)">I've been redesigning the objects around me for as long as I can remember. I trained in product design at Ningbo University in China, and work from Harare across furniture, consumer products, brands, packaging and apparel.</p>
+      <p style="color:var(--fg-2)">I lead the brands of a group of businesses in Harare, and run <a href="https://anti-formula.com" rel="noopener">Anti-Formula</a>, my studio for objects.</p>
     </div>
   </Sec>
 
-  <Sec n="03" title="Contact" id="contact">
+  <Sec title="Contact" id="contact">
     <dl class="contact">
       <dt>Email</dt><dd><a href="mailto:sandetanaka@gmail.com">sandetanaka@gmail.com</a></dd>
       <dt>Phone</dt><dd>+263 71 326 4354</dd>
-      <dt>Studio</dt><dd><a href="https://anti-formula.com" rel="noopener">anti-formula.com</a></dd>
     </dl>
   </Sec>
 </Base>

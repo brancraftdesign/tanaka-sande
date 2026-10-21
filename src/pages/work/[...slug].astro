@@ -11,19 +11,11 @@ const d = entry.data;
 const { Content } = await render(entry);
 ---
 <Base title={`${d.title} · Tanaka Sande`} description={d.summary} page="file" image={d.cover}>
-  <section class="sec file-head" aria-labelledby="t">
-    <div class="lab"><a class="back" href="/#index">← Index</a></div>
-    <div class="body" style="gap:0">
-      <p class="code">{d.code} · {d.discipline}</p>
-      <h1 id="t">{d.title}</h1>
-      {d.lead && <p class="lead">{d.lead}</p>}
-      <dl class="file-spec">
-        <div><dt>Client</dt><dd>{d.client}</dd></div>
-        <div><dt>Year</dt><dd>{d.year}</dd></div>
-        {d.role && <div><dt>My role</dt><dd>{d.role}</dd></div>}
-        {d.state && <div><dt>Status</dt><dd>{d.state}</dd></div>}
-      </dl>
-    </div>
-  </section>
+  <header class="file-head">
+    <a class="ro back" href="/#index">← Index</a>
+    <h1 id="t">{d.title}</h1>
+    {d.lead && <p class="lead">{d.lead}</p>}
+    <p class="ro specline"><span>{d.code}</span><span>{d.client}</span><span>{d.year}</span>{d.role && <span>{d.role}</span>}{d.state && <span>{d.state}</span>}</p>
+  </header>
   <Content />
 </Base>

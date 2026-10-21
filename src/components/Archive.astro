@@ -2,34 +2,32 @@
 import { getCollection } from 'astro:content';
 const items = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 ---
-<table class="idx" data-idx>
-  <thead><tr><th scope="col">File</th><th scope="col">Object</th><th scope="col">Discipline</th><th scope="col">Year</th><th scope="col" style="text-align:right">Status</th></tr></thead>
-  <tbody>
-    {items.map(({ id, data }) => (
-      <tr class={data.status} data-cover={data.cover}>
-        <td class="code">{data.code}</td>
-        <td>
-          <div class="ttl">{data.status === 'live' ? <a href={`/work/${id}/`}>{data.title}</a> : <span>{data.title}</span>}</div>
-          {data.cover && <img class="thumb" src={data.cover} alt="" loading="lazy" />}
-        </td>
-        <td class="meta">{data.discipline}<br /><span style="color:var(--fg-3)">{data.client}</span></td>
-        <td class="yr">{data.year}</td>
-        <td class="st">{data.status === 'live' ? <span><span class="dot" aria-hidden="true"></span>Open file</span> : <span style="color:var(--fg-3)">File pending</span>}</td>
-      </tr>
-    ))}
-  </tbody>
-</table>
+<ul class="idx" data-idx>
+  {items.map(({ id, data }) => (
+    <li class={data.status} data-cover={data.cover}>
+      {data.status === 'live' ? (
+        <a class="row" href={`/work/${id}/`}>
+          <span class="code">{data.code}</span><span class="ttl">{data.title}</span><span class="meta">{data.discipline}</span><span class="yr">{data.year}</span>
+        </a>
+      ) : (
+        <div class="row" aria-label={`${data.title}, coming soon`}>
+          <span class="code">{data.code}</span><span class="ttl">{data.title}</span><span class="meta">Soon</span><span class="yr">{data.year}</span>
+        </div>
+      )}
+    </li>
+  ))}
+</ul>
 <div class="peek" data-peek aria-hidden="true"><img alt="" /></div>
 <script is:inline>
 (function () {
   var t = document.querySelector('[data-idx]'), pk = document.querySelector('[data-peek]');
   if (!t || !pk || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   var img = pk.querySelector('img');
-  t.querySelectorAll('tr[data-cover]').forEach(function (tr) {
-    var src = tr.getAttribute('data-cover'); if (!src) return;
-    tr.addEventListener('mouseenter', function () { img.src = src; pk.classList.add('on'); });
-    tr.addEventListener('mouseleave', function () { pk.classList.remove('on'); });
-    tr.addEventListener('mousemove', function (e) { pk.style.left = (e.clientX + 170) + 'px'; pk.style.top = e.clientY + 'px'; });
+  t.querySelectorAll('li[data-cover]').forEach(function (li) {
+    var src = li.getAttribute('data-cover'); if (!src) return;
+    li.addEventListener('mouseenter', function () { img.src = src; pk.classList.add('on'); });
+    li.addEventListener('mouseleave', function () { pk.classList.remove('on'); });
+    li.addEventListener('mousemove', function (e) { pk.style.left = (e.clientX + 150) + 'px'; pk.style.top = e.clientY + 'px'; });
   });
 })();
 </script>

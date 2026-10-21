@@ -4,10 +4,7 @@
 ---
 <figure class="obj" data-obj aria-label="Wireframe study of a turned vessel, 140 mm across and 260 mm tall, slowly revolving.">
   <canvas aria-hidden="true"></canvas>
-  <span class="tag tl">Fig. 000 · Vessel study</span>
-  <span class="tag tr">Ø 140 · H 260 mm</span>
-  <span class="tag bl">Lathe profile · 28 seg</span>
-  <span class="tag br" data-theta>θ 000.0°</span>
+  <span class="tag ro">Fig. 000 · Vessel · Ø 140 × 260</span>
 </figure>
 <script is:inline>
 (function () {
@@ -20,7 +17,7 @@
   var DIM = css.getPropertyValue('--fg-3').trim() || '#75736E';
   // profile: [radius, height] in mm, base at 0
   var P = [[0,0],[50,0],[57,8],[64,48],[70,110],[66,150],[54,186],[36,214],[27,236],[30,252],[36,260]];
-  var SEG = 28;
+  var SEG = 24;
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var W, H, dpr;
   function size() {
@@ -38,8 +35,8 @@
   }
   function draw(a) {
     ctx.clearRect(0, 0, W, H);
-    var s = Math.min(W, H) / 360, cx = W * 0.52, cy = H * 0.52;
-    ctx.lineWidth = 1;
+    var s = Math.min(W, H) / 330, cx = W * 0.5, cy = H * 0.5;
+    ctx.lineWidth = 0.8;
     // meridians
     for (var k = 0; k < SEG; k++) {
       var phi = (k / SEG) * Math.PI * 2, front = 0;
@@ -51,7 +48,7 @@
       }
       var back = front / P.length > 0;
       ctx.strokeStyle = k === 0 ? SIG : LINE;
-      ctx.globalAlpha = k === 0 ? 0.95 : (back ? 0.12 : 0.42);
+      ctx.globalAlpha = k === 0 ? 0.9 : (back ? 0.06 : 0.24);
       ctx.stroke();
     }
     // parallels
@@ -62,22 +59,14 @@
         var ph = (m / 64) * Math.PI * 2, q = proj(rr * Math.cos(ph), P[j][1], rr * Math.sin(ph), a, s, cx, cy);
         if (m) ctx.lineTo(q[0], q[1]); else ctx.moveTo(q[0], q[1]);
       }
-      ctx.strokeStyle = LINE; ctx.globalAlpha = j === P.length - 1 ? 0.6 : 0.22; ctx.stroke();
+      ctx.strokeStyle = LINE; ctx.globalAlpha = j === P.length - 1 ? 0.35 : 0.1; ctx.stroke();
     }
-    // dimension: height bracket
-    ctx.globalAlpha = 0.9; ctx.strokeStyle = DIM;
-    var top = proj(0, 260, 0, 0, s, cx, cy), bot = proj(0, 0, 0, 0, s, cx, cy), x0 = cx - 118 * s;
-    ctx.beginPath();
-    ctx.moveTo(x0, top[1]); ctx.lineTo(x0, bot[1]);
-    ctx.moveTo(x0 - 5, top[1]); ctx.lineTo(x0 + 5, top[1]);
-    ctx.moveTo(x0 - 5, bot[1]); ctx.lineTo(x0 + 5, bot[1]);
-    ctx.stroke();
     ctx.globalAlpha = 1;
   }
   var a = 0.6, last = 0, vis = true;
   function tick(now) {
     var dt = last ? Math.min(0.1, (now - last) / 1000) : 0; last = now;
-    if (vis) { a += dt * 0.22; draw(a); if (th) th.textContent = 'θ ' + ((a * 180 / Math.PI) % 360).toFixed(1).padStart(5, '0') + '°'; }
+    if (vis) { a += dt * 0.16; draw(a); }
     requestAnimationFrame(tick);
   }
   size(); draw(a);
