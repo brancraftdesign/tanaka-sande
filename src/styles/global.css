@@ -4,6 +4,7 @@
 @font-face { font-family: "Martian Mono"; src: url("/fonts/martian-mono-latin-wdth-normal.woff2") format("woff2"); font-weight: 100 800; font-stretch: 75% 112.5%; font-display: swap; }
 @font-face { font-family: "Instrument Serif"; src: url("/fonts/instrument-serif-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "Instrument Serif"; src: url("/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "IBM Plex Mono"; src: url("/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
 @font-face { font-family: "DM Mono"; src: url("/fonts/dm-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "DM Mono"; src: url("/fonts/dm-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
 
@@ -44,7 +45,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; text-wrap: balance; }
 
 /* header */
 .hud { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding-block: 28px; }
-.wm { font: 500 13px/1 var(--f-sans); letter-spacing: .02em; }
+.wm { font: 500 12px/1 "IBM Plex Mono", ui-monospace, Menlo, monospace; letter-spacing: .14em; text-transform: uppercase; }
 .hud nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 22px; }
 .hud nav a { font: 400 10px/1 var(--f-mono); font-stretch: 80%; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); padding-block: 8px; display: inline-block; transition: color .2s; }
 .hud nav a:hover { color: var(--fg); }
