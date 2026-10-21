@@ -218,3 +218,6 @@ figcaption { font: 400 9.5px/1.5 var(--f-mono); font-stretch: 80%; letter-spacin
 .next.ro { display: inline-block; padding-bottom: 56px; }
 .next.ro:hover { color: var(--fg); }
 @media (max-width: 640px) { .gallery { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
+.gallery .wide { grid-column: 1 / -1; }
+.gallery.r169 > figure > img { aspect-ratio: 16 / 9; }
+.gallery.r169 > figure.strip > img { aspect-ratio: auto; }
