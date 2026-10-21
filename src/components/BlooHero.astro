@@ -1,0 +1,26 @@
+---
+import raw from '../assets/svg/bloo-wordmark.svg?raw';
+const W = Number(raw.match(/viewBox="0 0 ([\d.]+) 1000"/)?.[1] ?? 2041);
+const inner = raw.replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '');
+// wordmark 760 px wide in a 1920 × 1080 frame
+const s = 760 / W, x = (1920 - 760) / 2, y = 500 - (1000 * s) / 2;
+let i = 0;
+const letters = inner.replace(/<g class="lt"[^>]*>/g, () => `<g filter="url(#bf${i++})">`);
+---
+<figure class="bloo-hero">
+  <div class="motion m-bloo" data-motion="bloo" role="img" aria-label="BLOO logo animation: the wordmark pulls back from a close crop and each letter comes into focus in turn, a focus frame locks on, and the line Focus, by design. appears.">
+    <svg viewBox="0 0 1920 1080" aria-hidden="true">
+      <defs>
+        {[0, 1, 2, 3].map(n => (
+          <filter id={`bf${n}`} x="-60%" y="-30%" width="220%" height="160%" filterUnits="objectBoundingBox"><feGaussianBlur class="b-blur" stdDeviation="0" /></filter>
+        ))}
+      </defs>
+      <rect width="1920" height="1080" fill="#004777" />
+      <g class="b-word"><g transform={`translate(${x.toFixed(2)} ${y.toFixed(2)}) scale(${s.toFixed(5)})`} fill="#FAF9F3" set:html={letters} /></g>
+      <g class="b-brackets" fill="none" stroke="#FAF9F3" stroke-width="2" stroke-linecap="square" style="opacity:0">
+        <path class="b-arm" /><path class="b-arm" /><path class="b-arm" /><path class="b-arm" />
+      </g>
+      <text class="b-line" x="960" y="836" text-anchor="middle" fill="#FAF9F3" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="30" letter-spacing="5">Focus, by design.</text>
+    </svg>
+  </div>
+</figure>

@@ -171,7 +171,51 @@
     };
   }
 
-  const makers = { drop01, walkhome, rain };
+  /* ---------- BLOO: a rack focus. The wordmark pulls back from a crop,
+     each letter sharpens in turn, a focus frame locks on, the line arrives. ---------- */
+  function bloo(node) {
+    const D = 6;
+    const word = node.querySelector('.b-word');
+    const blurs = [...node.querySelectorAll('.b-blur')];
+    const br = node.querySelector('.b-brackets');
+    const arms = [...node.querySelectorAll('.b-arm')];
+    const line = node.querySelector('.b-line');
+    const F = { x0: 60, y0: 60, x1: 1860, y1: 1020 };      // frame at start
+    const L = { x0: 520, y0: 262, x1: 1400, y1: 738 };     // locked on the wordmark
+    const A = 44;                                           // bracket arm length
+    const lerp = (a, b, p) => a + (b - a) * p;
+    function corners(r) {
+      const { x0, y0, x1, y1 } = r;
+      return [
+        `M${x0} ${y0 + A}V${y0}H${x0 + A}`, `M${x1 - A} ${y0}H${x1}V${y0 + A}`,
+        `M${x1} ${y1 - A}V${y1}H${x1 - A}`, `M${x0 + A} ${y1}H${x0}V${y1 - A}`
+      ];
+    }
+    return {
+      D, rest: D, once: true,
+      render(t) {
+        t = clamp(t, 0, D);
+        const k = easeInOut(prog(t, 0.15, 3.1));
+        const sc = lerp(3.4, 1, k);
+        word.setAttribute('transform', `translate(960 500) scale(${sc.toFixed(4)}) translate(-960 -500)`);
+        word.style.opacity = easeOut(prog(t, 0, 0.6));
+        blurs.forEach((b, i) => {
+          const s = 0.8 + i * 0.36;
+          b.setAttribute('stdDeviation', (46 * (1 - easeOut(prog(t, s, s + 1.5)))).toFixed(2));
+        });
+        const q = easeInOut(prog(t, 0.6, 3.3));
+        const r = { x0: lerp(F.x0, L.x0, q), y0: lerp(F.y0, L.y0, q), x1: lerp(F.x1, L.x1, q), y1: lerp(F.y1, L.y1, q) };
+        corners(r).forEach((d, i) => arms[i].setAttribute('d', d));
+        const lock = prog(t, 3.45, 3.6) - prog(t, 3.6, 3.75);
+        br.style.opacity = (0.55 * prog(t, 0.5, 1.1) + 0.45 * lock) * (1 - prog(t, 3.8, 4.5));
+        const l = easeOut(prog(t, 4.0, 4.9));
+        line.style.opacity = 0.86 * l;
+        line.setAttribute('letter-spacing', (lerp(14, 5, l)).toFixed(2));
+      }
+    };
+  }
+
+  const makers = { drop01, walkhome, rain, bloo };
   const pieces = [];
   const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -181,10 +225,13 @@
       if (!make) return;
       const p = make(node);
       p.node = node; p.t = 0; p.visible = false;
-      p.render(p.rest);
+      const r0 = node.getBoundingClientRect();
+      const inView = r0.top < innerHeight && r0.bottom > 0;
+      p.render(p.once && inView && !reduce ? 0 : p.rest);
+      p.played = p.once && inView;
       pieces.push(p);
       if ('IntersectionObserver' in window) {
-        new IntersectionObserver(es => es.forEach(e => (p.visible = e.isIntersecting)), { threshold: 0.25 }).observe(node);
+        new IntersectionObserver(es => es.forEach(e => { p.visible = e.isIntersecting; if (p.once && p.visible && !p.played) { p.played = true; p.t = 0; } }), { threshold: 0.25 }).observe(node);
       } else p.visible = true;
     });
     window.__motion = {
@@ -196,7 +243,7 @@
     let last = performance.now();
     function tick(now) {
       const dt = Math.min(0.1, (now - last) / 1000); last = now;
-      pieces.forEach(p => { if (p.visible) { p.t += dt; p.render(p.t); } });
+      pieces.forEach(p => { if (!p.visible) return; if (p.once) { if (p.t >= p.D) return; p.t = Math.min(p.D, p.t + dt); } else p.t += dt; p.render(p.t); });
       requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);

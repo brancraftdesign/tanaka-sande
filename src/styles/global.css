@@ -223,3 +223,5 @@ figcaption { font: 400 9.5px/1.5 var(--f-mono); font-stretch: 80%; letter-spacin
 .gallery.r169 > figure.strip > img { aspect-ratio: auto; }
 .gallery.r32 > figure > img { aspect-ratio: 3 / 2; }
 .gallery > figure.r1610 > img { aspect-ratio: 16 / 10; }
+.m-bloo { aspect-ratio: 16 / 9; background: #004777; }
+.bloo-hero { margin-bottom: 8px; }
