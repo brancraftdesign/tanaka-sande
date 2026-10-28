@@ -28,4 +28,4 @@ npm run build    # static site in dist/
 
 ## Deploy
 
-Netlify reads `netlify.toml`: build `npm run build`, publish `dist`. Every push to `main` redeploys.
+Hosted on Cloudflare Pages: tanakasande.pages.dev. Build command `npm run build`, output directory `dist`, Node version from `.node-version`. Every push to `main` redeploys.
