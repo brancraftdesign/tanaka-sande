@@ -28,4 +28,4 @@ npm run build    # static site in dist/
 
 ## Deploy
 
-Hosted on Cloudflare Pages: tanakasande.pages.dev. Build command `npm run build`, output directory `dist`, Node version from `.node-version`. Every push to `main` redeploys.
+Hosted on Cloudflare (Workers): tanakasande.tanakadesign25.workers.dev. Build command `npm run build`, output directory `dist`, Node version from `.node-version`. Every push to `main` redeploys.
